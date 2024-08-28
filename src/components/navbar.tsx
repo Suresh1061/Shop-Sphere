@@ -1,15 +1,15 @@
 import Link from 'next/link';
 import { Button } from './ui/button';
-import { UserButton } from './user-button';
 import { getSession } from '@/app/lib';
+import UserButton from './user-button';
 
-export const Navbar = async () => {
+const Navbar = async () => {
     const session = await getSession();
 
     return (
         <nav className="h-20 w-full px-4 shadow-md">
             <div className="container w-full h-full flex justify-between items-center">
-                <a href="/" className="font-semibold text-slate-800 text-xl">E-Shop</a>
+                <a href="/" className="font-semibold text-slate-800 text-xl">ShopSphere</a>
                 {session ? (
                     <UserButton  {...session.user} />
                 ) : (
@@ -26,3 +26,5 @@ export const Navbar = async () => {
         </nav>
     );
 };
+
+export default Navbar;

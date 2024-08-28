@@ -15,7 +15,7 @@ interface TextareaFieldProps {
     control: Control<any>;
 }
 
-export const TextareaField = ({
+const TextareaField = ({
     name,
     label,
     placeholder,
@@ -41,3 +41,5 @@ export const TextareaField = ({
         />
     );
 };
+
+export default TextareaField;

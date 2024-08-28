@@ -22,12 +22,11 @@ export async function decrypt(input: string): Promise<any> {
     return payload;
 }
 
-export async function login(userData: userType) {
+export async function generateToken(userData: userType) {
     const { email, role, _id } = userData
     const user = {
         id: _id, email, role
     };
-    // Create the session
     const expires = new Date(Date.now() + 60 * 60 * 1000); //expires in 1 hour
     const session = await encrypt({ user, expires });
     // Save the session in a cookie

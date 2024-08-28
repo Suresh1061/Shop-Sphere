@@ -10,7 +10,7 @@ interface PaginationButtonsProps {
     setPageNumber: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const PaginationButtons = ({
+const PaginationButtons = ({
     pageNumber,
     response,
     setPageNumber,
@@ -43,3 +43,5 @@ export const PaginationButtons = ({
         </div>
     )
 }
+
+export default PaginationButtons

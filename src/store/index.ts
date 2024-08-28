@@ -3,11 +3,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import reducers from "./reducers";
 import { baseApi } from "./baseApi";
-import { getSession } from "@/app/lib";
 
 const store = configureStore({
 	reducer: reducers,
-	devTools: false,
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware().concat(baseApi.middleware),
 });

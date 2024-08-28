@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Edit } from "lucide-react";
 import Image from "next/image";
 
-export const ProductDetails: React.FC<productType & { setEditable: React.Dispatch<React.SetStateAction<boolean>> }> = ({
+const ProductDetails: React.FC<productType & { setEditable: React.Dispatch<React.SetStateAction<boolean>> }> = ({
     id,
     image,
     productName,
@@ -50,3 +50,5 @@ export const ProductDetails: React.FC<productType & { setEditable: React.Dispatc
         </div>
     );
 };
+
+export default ProductDetails

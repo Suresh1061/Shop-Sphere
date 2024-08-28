@@ -1,26 +1,29 @@
 'use client';
 
-import React, { useState, useTransition } from 'react';
+import React, { useEffect, useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form"
 import { Button } from '@/components/ui/button';
-import { InputField } from '@/components/input-field';
+import InputField from '@/components/input-field';
 import { useRouter } from 'next/navigation';
-import { FormError } from '@/components/form-error';
-import { FormSuccess } from '@/components/form-success';
-import { registerSchema } from '@/schemas';
 import CardWrapper from '@/components/auth/card-wrapper';
-import { RadioField } from '@/components/radio-field';
-import axios, { AxiosError } from "axios"
-import { ApiResponse } from '@/types/ApiResponse';
-import { login } from '@/app/lib';
+import { generateToken } from '@/app/lib';
+import { useRegisterMutation } from '@/store/baseApi';
+import { registerSchema } from '@/schemas';
+import RadioField from '@/components/radio-field';
 import * as z from "zod";
+
+import dynamic from 'next/dynamic';
+const FormError = dynamic(() => import('@/components/form-error'), { ssr: false })
+const FormSuccess = dynamic(() => import('@/components/form-success'), { ssr: false })
 
 
 const Register = () => {
-    const [status, setStatus] = useState<{ error?: string; success?: string }>({});
-    const [isPending, startTransition] = useTransition();
+    const [status, setStatus] = useState<{ error?: string; success?: string }>(
+        {}
+    );
+    const [register, { isLoading, isError, error }] = useRegisterMutation();
     const router = useRouter();
 
     const form = useForm<z.infer<typeof registerSchema>>({
@@ -29,26 +32,25 @@ const Register = () => {
             email: "",
             password: "",
             role: "team-member",
-        }
+        },
     });
 
-    const submitForm = (data: z.infer<typeof registerSchema>) => { 
-        startTransition(async () => {
-            try {
-                const { data: response } = await axios.post<ApiResponse>("/api/auth/register", data); 
-                if (!response.success) {
-                    setStatus({ error: response.message });
-                } else {
-                    setStatus({ success: response.message });
-                    await login(response.data);
-                    router.replace('/dashboard');
-                }
-            } catch (error) {
-                const axiosError = error as AxiosError<ApiResponse>;
-                const errorMessage = axiosError.response?.data?.message || "Something went wrong. Please try again.";
-                setStatus({ error: errorMessage });
-            }
-        });
+    useEffect(() => {
+        if (isError) {
+            const errorMessage = error as {
+                data: { message: string };
+            };
+            setStatus({ error: errorMessage.data.message });
+        }
+    }, [isError]);
+
+    const submitForm = async (data: z.infer<typeof registerSchema>) => {
+        const res = await register(data);
+        if (res.data?.success) {
+            setStatus({ success: res.data.message });
+            await generateToken(res.data.data);
+            router.push("/dashboard");
+        }
     };
 
     return (
@@ -59,28 +61,25 @@ const Register = () => {
             backButtonHref="/login"
         >
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(submitForm)} className='space-y-3'>
+                <form onSubmit={form.handleSubmit(submitForm)} className="space-y-3">
                     <InputField
-                        name='email'
-                        label='Email'
-                        placeholder='Your email address'
+                        name="email"
+                        label="Email"
+                        placeholder="Your email address"
                         control={form.control}
                     />
                     <InputField
-                        name='password'
-                        type='password'
-                        label='Password'
-                        placeholder='Enter password'
+                        name="password"
+                        type="password"
+                        label="Password"
+                        placeholder="Enter password"
                         control={form.control}
                     />
-                    <RadioField
-                        name='role'
-                        control={form.control}
-                    />
+                    <RadioField name="role" control={form.control} />
                     {status.error && <FormError message={status.error} />}
                     {status.success && <FormSuccess message={status.success} />}
-                    <Button disabled={isPending} type='submit' className='w-full'>
-                        {isPending ? "Registering..." : "Register"}
+                    <Button disabled={isLoading} type="submit" className="w-full">
+                        {isLoading ? "Registering..." : "Register"}
                     </Button>
                 </form>
             </Form>

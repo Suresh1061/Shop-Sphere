@@ -18,7 +18,7 @@ interface InputFieldProps {
   control: Control<any>;
 }
 
-export const InputField = ({
+const InputField = ({
   name,
   label,
   type = "text",
@@ -60,3 +60,5 @@ export const InputField = ({
     />
   );
 };
+
+export default InputField;

@@ -1,19 +1,17 @@
 "use client";
 
-import { JumpPage } from "@/components/jump-page";
-import { PaginationButtons } from "@/components/pagination-button";
-import { ProductCardSkeleton } from "@/components/dashboard/product-card-skeleton";
-// import { Search } from "@/components/dashboard/search";
-import { ProductCard } from "@/components/dashboard/product-cad";
-import { useGetAllProductsQuery } from "@/store/baseApi";
+import ProductCard from "@/components/dashboard/product-card";
 import { productType } from "@/types";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useGetAllProductsQuery } from "@/store/features/productFeature";
+import dynamic from "next/dynamic";
+const ProductCardSkeleton = dynamic(() => import("@/components/dashboard/product-card-skeleton"), { ssr: false });
+const PaginationButtons = dynamic(() => import("@/components/pagination-button"), { ssr: false });
 
 const Dashboard = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [limit, setLimit] = useState(12);
-  // const [search, setSearch] = useState("");
 
   const {
     data: response,
@@ -39,16 +37,6 @@ const Dashboard = () => {
       {response && response.data.length ? (
         <div>
           <div className="flex max-sm:flex-col items-center justify-between gap-5 mb-6">
-            <JumpPage
-              limit={limit}
-              setLimit={setLimit}
-              className=" order-2 sm:order-1"
-            />
-            {/* <Search
-              value={search}
-              setSearch={setSearch}
-              className=" order-1 sm:order-2"
-            /> */}
           </div>
           <div className="grid max-sm:place-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {response.data.map((product: productType) => (
@@ -63,7 +51,7 @@ const Dashboard = () => {
         </div>
       ) : (
         <div className="w-full py-60 flex items-center justify-center">
-            <h1 className="text-2xl font-bold text-center text-muted-foreground">No products found</h1>
+          <h1 className="text-2xl font-bold text-center text-muted-foreground">No products found</h1>
         </div>
       )}
     </section>

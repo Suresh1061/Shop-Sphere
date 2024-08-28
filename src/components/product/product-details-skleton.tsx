@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/skeleton'
 
-export const ProductDetailsSkeleton = () => {
+const ProductDetailsSkeleton = () => {
     return (
         <div className="w-full max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8">
@@ -19,3 +19,5 @@ export const ProductDetailsSkeleton = () => {
         </div>
     )
 }
+
+export default ProductDetailsSkeleton

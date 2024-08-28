@@ -3,7 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Card, CardContent } from "../ui/card"
 
-export const ProductCard = ({
+const ProductCard = ({
     id,
     image,
     productName,
@@ -25,7 +25,7 @@ export const ProductCard = ({
                         />
                     </div>
                     <div className="p-4 font-medium">
-                        <h3 className="font-medium line-clamp-2 mb-2">{productName}</h3>
+                        <h3 className="font-medium line-clamp-2 mb-2 capitalize">{productName}</h3>
                         <div className="flex items-center justify-between">
                             <span className="text-primary font-sans">&#8377;{price}</span>
                             <span className="text-xs  py-1 bg-blue-200 px-2 rounded-full">{department}</span>
@@ -36,3 +36,5 @@ export const ProductCard = ({
         </Card>
     )
 }
+
+export default ProductCard

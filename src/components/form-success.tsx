@@ -4,7 +4,7 @@ interface FormSuccessProps {
   message?: string;
 };
 
-export const FormSuccess = ({
+const FormSuccess = ({
   message,
 }: FormSuccessProps) => {
   if (!message) return null;
@@ -16,3 +16,5 @@ export const FormSuccess = ({
     </div>
   );
 };
+
+export default FormSuccess;

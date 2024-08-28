@@ -14,7 +14,7 @@ interface PendingRequestsTableProps {
     pendingRequests: pendingRequestsType[];
 }
 
-export const PendingRequestTable: React.FC<PendingRequestsTableProps> = ({ pendingRequests }) => {
+const PendingRequestTable: React.FC<PendingRequestsTableProps> = ({ pendingRequests }) => {
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -66,3 +66,5 @@ export const PendingRequestTable: React.FC<PendingRequestsTableProps> = ({ pendi
         </div>
     )
 }
+
+export default PendingRequestTable

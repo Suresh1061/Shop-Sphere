@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
-import { getSession } from "./app/lib";
+import { getSession } from "@/app/lib";
 
 export async function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname;
     const session = await getSession();
-    const isPublic = path === '/login' || path === '/register'; 
-    const onlyAdminAccess = path.includes('/pending-requests'); 
+    const isPublic = path === '/login' || path === '/register';
+    const onlyAdminAccess = path.includes('/pending-requests');
     const onlyMemberAccess = path === '/profile/my-submissions';
     if (!isPublic && !session) {
         return NextResponse.redirect(new URL('/login', request.nextUrl));
@@ -31,6 +31,7 @@ export const config = {
         '/register',
         '/product/:path*',
         '/profile',
+        '/profile/:path*',
         '/profile/my-submissions',
         '/pending-requests',
         '/pending-requests/:path*',

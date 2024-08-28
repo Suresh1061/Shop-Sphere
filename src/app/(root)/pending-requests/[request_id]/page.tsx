@@ -1,17 +1,15 @@
 "use client";
 
 import { getSession } from "@/app/lib";
-import { Loading } from "@/components/loading";
-import { PreviewProductCard } from "@/components/preview-product-card";
+import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
-import {
-  useApproveProductReviewMutation,
-  useGetProductDetailsQuery,
-  useGetReviewProductDetailsQuery,
-} from "@/store/baseApi";
+import { useGetProductDetailsQuery } from "@/store/features/productFeature";
+import { useApproveProductReviewMutation, useGetReviewProductDetailsQuery } from "@/store/features/reviewFeature";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import dynamic from "next/dynamic";
+const PreviewProductCard = dynamic(() => import("@/components/preview-product-card"), { ssr: false });
 
 const PendingRequestDetails = () => {
   const router = useRouter();
@@ -58,15 +56,18 @@ const PendingRequestDetails = () => {
     return <Loading />;
   }
 
-  if (isError || isReviewProductError || isUpdateProductError) {
-    const errorMsg =
-      (error as { message: string }) ||
-      (reviewProductError as { message: string }) ||
-      (updateProductError as { data: { message: string } });
+  // useEffect(() => {
+  //   if (isError || isReviewProductError || isUpdateProductError) {
+  //     const errorMsg =
+  //       (error as { data: { message: string } }) ||
+  //       (reviewProductError as { data: { message: string } }) ||
+  //       (updateProductError as { data: { message: string } });
 
-    //@ts-ignore
-    toast.error(updateProductError ? errorMsg.data.message : errorMsg.message);
-  }
+  //     if (errorMsg && errorMsg.data && errorMsg.data.message) {
+  //       toast.error(errorMsg.data.message);
+  //     }
+  //   }
+  // }, [isError, isReviewProductError, isUpdateProductError])
 
   const originalProduct = data?.data;
   const reviewProduct = reviewProductData?.data;

@@ -17,7 +17,7 @@ interface ImageFieldProps {
     form: any;
 }
 
-export const ImageField = ({ name, form }: ImageFieldProps) => {
+const ImageField = ({ name, form }: ImageFieldProps) => {
     const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
     const [openCropModal, setOpenCropModal] = useState(false);
     const [getCroppedUrl, setCroppedUrl] = useState<string | null>(null);
@@ -94,3 +94,5 @@ export const ImageField = ({ name, form }: ImageFieldProps) => {
         </>
     );
 };
+
+export default ImageField

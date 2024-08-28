@@ -1,11 +1,18 @@
 "use client";
 
-import { Loading } from "@/components/loading"
-import { StartsCard } from "@/components/profile/starts-card"
-import { UserInfo } from "@/components/profile/user-info";
-import { useGetReviewProductsQuery, useUserDetailsQuery } from "@/store/baseApi"
-import { StartsCardType } from "@/types"
-import { useParams } from "next/navigation"
+import  Loading  from "@/components/loading";
+import { useUserDetailsQuery } from "@/store/baseApi";
+import { useGetReviewProductsQuery } from "@/store/features/reviewFeature";
+import { StartsCardType } from "@/types";
+import dynamic from "next/dynamic";
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
+const StartsCard = dynamic(() => import("@/components/profile/starts-card"), {
+  ssr: false,
+});
+const UserInfo = dynamic(() => import("@/components/profile/user-info"), {
+  ssr: false,
+});
 
 
 const Profile = () => {
@@ -18,13 +25,26 @@ const Profile = () => {
     error: reviewError,
   } = useGetReviewProductsQuery({ status: "pending" });
 
+  useEffect(() => {
+    if (isError || reviewIsError) {
+      const errorMessage =
+        (error as { data: { message: string } }) ||
+        (reviewError as { data: { message: string } });
+      // @ts-ignore
+      toast.error(errorMessage ? errorMessage.data.message : reviewError?.data.message);
+    }
+  }, [isError, reviewIsError]);
+
   const user = data?.data;
 
   const startsList: StartsCardType[] = [
     {
       title: "Pending Requests",
       status: "pending",
-      value: user?.role === "admin" ? reviews?.totalSize : user?.no_of_pending_reviews,
+      value:
+        user?.role === "admin"
+          ? reviews?.totalSize
+          : user?.no_of_pending_reviews,
       subtitle:
         user?.role === "admin"
           ? "Total pending requests"
@@ -43,10 +63,12 @@ const Profile = () => {
       subtitle: user?.role === "admin" ? "Rejected by me" : "Rejected by admin",
     },
   ];
-  
+
   return (
     <section>
-      {isLoading ? <Loading /> :
+      {isLoading || reviewLoading ? (
+        <Loading />
+      ) : user && startsList && reviews ? (
         <div className="w-full max-w-lg mx-auto bg-background rounded-lg overflow-hidden">
           <UserInfo user={user} />
           <div className="grid grid-cols-3 gap-4 p-6">
@@ -62,7 +84,13 @@ const Profile = () => {
             ))}
           </div>
         </div>
-      }
+      ) : (
+        <div className="w-full py-60">
+          <h1 className="text-2xl font-bold text-center text-muted-foreground">
+            No user found
+          </h1>
+        </div>
+      )}
     </section>
   );
 };

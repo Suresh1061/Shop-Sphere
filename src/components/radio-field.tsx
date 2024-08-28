@@ -13,7 +13,7 @@ interface RadioFieldProps {
     control: Control<any>;
 }
 
-export const RadioField = ({ name, control }: RadioFieldProps) => {
+const RadioField = ({ name, control }: RadioFieldProps) => {
     return (
         <FormField
             name={name}
@@ -40,3 +40,5 @@ export const RadioField = ({ name, control }: RadioFieldProps) => {
         />
     );
 };
+
+export default RadioField;

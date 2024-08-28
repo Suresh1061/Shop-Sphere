@@ -18,7 +18,7 @@ interface userType {
     role: "admin" | "team-member"
 }
 
-export const UserButton: FC<userType> = ({ id, role }) => {
+const UserButton: FC<userType> = ({ id, role }) => {
     const router = useRouter();
     const signOut = async () => {
         await logout();
@@ -34,41 +34,41 @@ export const UserButton: FC<userType> = ({ id, role }) => {
                     </AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="min-w-[12rem] sm:text-lg space-y-2" align="end">
-                <span className="cursor-pointer">
+            <DropdownMenuContent className="min-w-[12rem] " align="end">
+                <span className="cursor-pointer space-y-1">
                     <DropdownMenuItem
                         className="cursor-pointer"
                         onClick={() => router.push(`/dashboard`)}
                     >
-                        <Gauge className="h-4 w-4 mr-2" />
+                        <Gauge className="h-5 w-5 mr-2" />
                         Dashboard
                     </DropdownMenuItem>
                     <DropdownMenuItem
                         className="cursor-pointer"
                         onClick={() => router.push(`/profile/${id}`)}
                     >
-                        <User className="h-4 w-4 mr-2" />
+                        <User className="h-5 w-5 mr-2" />
                         Profile
                     </DropdownMenuItem>
                     {role === "admin" ? (
                         <DropdownMenuItem
-                        className="cursor-pointer"
+                            className="cursor-pointer"
                             onClick={() => router.push(`/pending-requests`)}
-                    >
-                        <HelpCircle className="h-4 w-4 mr-2" />
-                        Pending Requests
-                    </DropdownMenuItem>
+                        >
+                            <HelpCircle className="h-5 w-5 mr-2" />
+                            Pending Requests
+                        </DropdownMenuItem>
                     ) : (
                         <DropdownMenuItem
-                        className="cursor-pointer"
-                                onClick={() => router.push(`/profile/my-submissions?status=pending&user_id=${id}`)}
-                    >
-                        <FileCheck className="h-4 w-4 mr-2" />
-                        My Submissions
+                            className="cursor-pointer"
+                            onClick={() => router.push(`/profile/my-submissions?status=pending&user_id=${id}`)}
+                        >
+                            <FileCheck className="h-5 w-5 mr-2" />
+                            My Submissions
                         </DropdownMenuItem>
                     )}
                     <DropdownMenuItem className="cursor-pointer" onClick={signOut}>
-                        <LogOut className="h-4 w-4 mr-2" />
+                        <LogOut className="h-5 w-5 mr-2" />
                         Logout
                     </DropdownMenuItem>
                 </span>
@@ -76,3 +76,5 @@ export const UserButton: FC<userType> = ({ id, role }) => {
         </DropdownMenu>
     );
 };
+
+export default UserButton

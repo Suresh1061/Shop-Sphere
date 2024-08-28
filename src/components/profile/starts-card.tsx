@@ -3,12 +3,11 @@ import { useRouter } from "next/navigation";
 
 type StartsCardProps = StartsCardType & { user: userType };
 
-export const StartsCard = ({
+const StartsCard = ({
     user,
     title,
     status,
     value,
-    subtitle
 }: StartsCardProps) => {
     const router = useRouter();
 
@@ -26,3 +25,5 @@ export const StartsCard = ({
         </div>
     )
 }
+
+export default StartsCard

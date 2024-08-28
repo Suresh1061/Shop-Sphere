@@ -4,7 +4,7 @@ interface FormErrorProps {
   message?: string;
 };
 
-export const FormError = ({
+const FormError = ({
   message,
 }: FormErrorProps) => {
   if (!message) return null;
@@ -16,3 +16,5 @@ export const FormError = ({
     </div>
   );
 };
+
+export default FormError;

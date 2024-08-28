@@ -1,4 +1,4 @@
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { userType } from "@/types"
 import { User } from "lucide-react"
 
@@ -6,11 +6,10 @@ interface UserInfoProps{
   user: userType;
 }
 
-export const UserInfo = ({user}:UserInfoProps) => {
+const UserInfo = ({user}:UserInfoProps) => {
   return (
     <div className="bg-primary p-6 flex items-center gap-4">
       <Avatar className="h-16 w-16">
-        <AvatarImage src="/placeholder-user.jpg" alt="@shadcn" />
         <AvatarFallback><User className="w-10 h-10"/></AvatarFallback>
       </Avatar>
       <div className="space-y-1">
@@ -21,3 +20,4 @@ export const UserInfo = ({user}:UserInfoProps) => {
     </div>
   )
 }
+export default UserInfo

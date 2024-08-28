@@ -1,23 +1,21 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { productSchema } from '@/schemas';
 import { Button } from '@/components/ui/button';
-import { InputField } from '@/components/input-field';
-import { TextareaField } from '@/components/textarea-field';
-import { ImageField } from '@/components/image-field';
-import { FormError } from '@/components/form-error';
-import { FormSuccess } from '@/components/form-success';
+import InputField from '@/components/input-field';
+import TextareaField from '@/components/textarea-field';
+import ImageField from '@/components/image-field';
 import { productType } from '@/types';
 import { useRouter } from 'next/navigation';
 import { Form } from '@/components/ui/form';
-import { useUpdateProductMutation } from '@/store/baseApi';
 import { getSession } from '@/app/lib';
 import toast from 'react-hot-toast';
-import { Loading } from '@/components/loading';
+import Loading from '@/components/loading';
+import { useUpdateProductMutation } from '@/store/features/productFeature';
 
 
 interface ProductFormProps {
@@ -25,8 +23,7 @@ interface ProductFormProps {
     setEditable: (value: boolean) => void;
 }
 
-export const ProductForm = ({ product, setEditable }: ProductFormProps) => {
-    const [status, setStatus] = useState({ error: "", success: "" });
+const ProductForm = ({ product, setEditable }: ProductFormProps) => {
     const router = useRouter();
     const [updateProduct, { isLoading, isError, error }] = useUpdateProductMutation();
 
@@ -109,9 +106,6 @@ export const ProductForm = ({ product, setEditable }: ProductFormProps) => {
                                     />
                                 </div>
                             </div>
-
-                            {status.error && <FormError message={status.error} />}
-                            {status.success && <FormSuccess message={status.success} />}
                             <div className="w-full flex gap-12">
                                 <Button
                                     disabled={isLoading}
@@ -137,3 +131,5 @@ export const ProductForm = ({ product, setEditable }: ProductFormProps) => {
         </div>
     );
 };
+
+export default ProductForm;

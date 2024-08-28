@@ -11,13 +11,17 @@ import {
 } from "@/components/ui/dialog"
 import { Eye } from "lucide-react";
 import { reviewResponseType } from "@/types";
-import { PreviewProductCard } from "../preview-product-card";
+
+import dynamic from "next/dynamic";
+const PreviewProductCard = dynamic(() => import('@/components/preview-product-card'), {
+    ssr: false,
+});
 
 interface MySubmissionsTableProps {
     reviewProducts: reviewResponseType[];
 }
 
-export const MySubmissionsTable: React.FC<MySubmissionsTableProps> = ({ reviewProducts }) => {
+const MySubmissionsTable: React.FC<MySubmissionsTableProps> = ({ reviewProducts }) => {
     const statusColorMap: Record<'pending' | 'approved' | 'rejected', string> = {
         pending: "text-orange-500",
         approved: "text-green-500",
@@ -83,3 +87,5 @@ export const MySubmissionsTable: React.FC<MySubmissionsTableProps> = ({ reviewPr
         </div>
     );
 };
+
+export default MySubmissionsTable   

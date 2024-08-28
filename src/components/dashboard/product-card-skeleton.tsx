@@ -1,7 +1,7 @@
 import { Card, CardContent } from '../ui/card'
 import { Skeleton } from '../ui/skeleton'
 
-export const ProductCardSkeleton = () => {
+const ProductCardSkeleton = () => {
     return (
         <section>
             <div className="flex items-center justify-between mb-3">
@@ -24,3 +24,5 @@ export const ProductCardSkeleton = () => {
         </section>
     )
 }
+
+export default ProductCardSkeleton

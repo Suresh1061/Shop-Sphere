@@ -9,7 +9,6 @@ import { Button } from "../components/ui/button";
 import {
     Dialog,
     DialogContent,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
@@ -58,7 +57,7 @@ export const CroppedImage: FC<props> = ({
             getImageUrl(downloadURL);
             closedModal();
         } catch (error) {
-            console.log("Error while uploading" , error);
+            console.log("Error while uploading", error);
             toast.error("Error uploading image");
         } finally {
             setLoading(false);
