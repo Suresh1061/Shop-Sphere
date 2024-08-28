@@ -19,7 +19,7 @@ const FormSuccess = dynamic(() => import('@/components/form-success'), { ssr: fa
 
 
 
-const login = () => {
+const Login = () => {
     const [status, setStatus] = useState<{ error?: string; success?: string }>({});
     const [login, { isLoading, isError, error }] = useLoginMutation()
     const router = useRouter()
@@ -83,4 +83,4 @@ const login = () => {
     );
 };
 
-export default login;
+export default Login;

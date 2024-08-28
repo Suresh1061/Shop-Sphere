@@ -79,7 +79,7 @@ export const CroppedImage: FC<props> = ({
                         <Cropper
                             src={image}
                             onChange={onChange}
-                            className={"h-96 w-full max-w-lg  bg-[#ddd]"}
+                            className={"h-auto w-full max-w-lg  bg-[#ddd]"}
                         />
                     </div>
                     <div className=" w-full flex justify-end gap-8">
