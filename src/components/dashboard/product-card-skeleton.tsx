@@ -4,9 +4,8 @@ import { Skeleton } from '../ui/skeleton'
 const ProductCardSkeleton = () => {
     return (
         <section>
-            <div className="flex items-center justify-between mb-3">
+            <div className="mb-3">
                 <Skeleton className="h-10 w-40" />
-                <Skeleton className="h-10 w-80" />
             </div>
             <div className="grid max-sm:place-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 {

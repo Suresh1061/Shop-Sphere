@@ -8,15 +8,13 @@ import { Button } from '@/components/ui/button';
 import InputField from '@/components/input-field';
 import { useRouter } from 'next/navigation';
 import CardWrapper from '@/components/auth/card-wrapper';
+import FormError from '@/components/form-error';
+import FormSuccess from '@/components/form-success';
 import { generateToken } from '@/app/lib';
 import { useRegisterMutation } from '@/store/baseApi';
 import { registerSchema } from '@/schemas';
 import RadioField from '@/components/radio-field';
 import * as z from "zod";
-
-import dynamic from 'next/dynamic';
-const FormError = dynamic(() => import('@/components/form-error'), { ssr: false })
-const FormSuccess = dynamic(() => import('@/components/form-success'), { ssr: false })
 
 
 const Register = () => {

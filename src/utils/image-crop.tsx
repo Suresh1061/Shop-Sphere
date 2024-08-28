@@ -75,11 +75,11 @@ export const CroppedImage: FC<props> = ({
                     <DialogHeader>
                         <DialogTitle className="font-medium text-muted-foreground text-center">Adjust image size</DialogTitle>
                     </DialogHeader>
-                    <div className="max-w-lg max-h-96">
+                    <div className="w-full h-full flex justify-center items-center">
                         <Cropper
                             src={image}
                             onChange={onChange}
-                            className={"h-auto w-full max-w-lg  bg-[#ddd]"}
+                            className={"w-[350px] h-auto sm:w-[512px] sm:h-96"}
                         />
                     </div>
                     <div className=" w-full flex justify-end gap-8">

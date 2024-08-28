@@ -9,13 +9,11 @@ import InputField  from '@/components/input-field';
 import { useRouter } from 'next/navigation';
 import { LoginSchema } from '@/schemas';
 import CardWrapper from '@/components/auth/card-wrapper';
+import FormError from '@/components/form-error';
+import FormSuccess from '@/components/form-success';
 import { generateToken } from '@/app/lib';
 import * as z from "zod";
 import { useLoginMutation } from '@/store/baseApi';
-
-import dynamic from 'next/dynamic';
-const FormError = dynamic(() => import('@/components/form-error'), { ssr: false })
-const FormSuccess = dynamic(() => import('@/components/form-success'), { ssr: false })
 
 
 
