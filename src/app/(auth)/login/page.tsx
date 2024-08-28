@@ -52,8 +52,8 @@ const Login = () => {
         <CardWrapper
             cardTitle="Welcome Back!"
             backText="Don't have an account?"
-            backButtonLabel="login"
-            backButtonHref="/login"
+            backButtonLabel="Register"
+            backButtonHref="/register"
         >
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(submitForm)} className='space-y-5'>

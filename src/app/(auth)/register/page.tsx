@@ -18,9 +18,7 @@ import * as z from "zod";
 
 
 const Register = () => {
-    const [status, setStatus] = useState<{ error?: string; success?: string }>(
-        {}
-    );
+    const [status, setStatus] = useState<{ error?: string; success?: string }>({});
     const [register, { isLoading, isError, error }] = useRegisterMutation();
     const router = useRouter();
 

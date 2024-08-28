@@ -6,7 +6,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { FileCheck, Gauge, HelpCircle, LogOut, User } from "lucide-react";
 import { logout } from "@/app/lib";
 import { useRouter } from "next/navigation";
@@ -28,7 +28,6 @@ const UserButton: FC<userType> = ({ id, role }) => {
         <DropdownMenu>
             <DropdownMenuTrigger>
                 <Avatar>
-                    <AvatarImage />
                     <AvatarFallback className="bg-sky-500">
                         <User className="text-white" />
                     </AvatarFallback>
