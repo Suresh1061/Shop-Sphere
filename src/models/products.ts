@@ -4,7 +4,6 @@ export type productsSchema = {
     id: string;
     productName: string;
     price: string;
-    stock: number;
     image: string;
     productDescription: string;
     department: string;
@@ -21,10 +20,6 @@ const productSchema = new Schema<productsSchema>({
     },
     price: {
         type: String,
-        required: true,
-    },
-    stock: {
-        type: Number,
         required: true,
     },
     image: {

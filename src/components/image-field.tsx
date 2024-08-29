@@ -28,8 +28,6 @@ const ImageField = ({ name, form }: ImageFieldProps) => {
             reader.onload = () => setPreview(reader.result);
             reader.readAsDataURL(acceptedFiles[0]);
             setOpenCropModal(true);
-            // form.setValue(name, acceptedFiles[0]);
-            // form.clearErrors(name);
         } catch (error) {
             setPreview(null);
             form.resetField(name);
@@ -39,7 +37,7 @@ const ImageField = ({ name, form }: ImageFieldProps) => {
     const { getRootProps, getInputProps, isDragActive, fileRejections } = useDropzone({
         onDrop,
         maxFiles: 1,
-        maxSize: 2000000, // 2MB limit
+        maxSize: 1000000, // 1MB limit
         accept: { 'image/png': [], 'image/jpg': [], 'image/jpeg': [] },
     });
 

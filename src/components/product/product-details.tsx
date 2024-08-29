@@ -11,7 +11,6 @@ const ProductDetails: React.FC<productType & { setEditable: React.Dispatch<React
     price,
     department,
     setEditable,
-    stock
 }) => {
     return (
         <div className="w-full max-w-6xl mx-auto" key={id}>
@@ -34,9 +33,6 @@ const ProductDetails: React.FC<productType & { setEditable: React.Dispatch<React
                     </div>
                     <p className="text-sm font-medium">Category:
                         <span className="py-1 bg-blue-200 px-2 rounded-full ms-2">{department}</span>
-                    </p>
-                    <p className="text-sm font-medium">In Stock:
-                        <span className="text-blue-600 ms-2">{stock ? stock : 0}</span>
                     </p>
                     <div className="flex items-center justify-between">
                         <span className="text-primary font-semibold text-2xl">&#8377;{price}</span>

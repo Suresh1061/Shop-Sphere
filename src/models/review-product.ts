@@ -32,9 +32,6 @@ const reviewSchema = new Schema<reviewSchemaType>({
         type: String,
         required: true,
     },
-    stock: {
-        type: Number, 
-    },
     product_updated_author: {
         type: String,
         required: true,

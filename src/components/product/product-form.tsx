@@ -38,7 +38,6 @@ const ProductForm = ({ product, setEditable }: ProductFormProps) => {
             productDescription: product?.productDescription || "",
             price: product?.price || "",
             department: product?.department || "",
-            stock: product?.stock || 0,
         }
     });
 

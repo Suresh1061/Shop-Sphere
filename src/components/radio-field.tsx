@@ -22,10 +22,10 @@ const RadioField = ({ name, control }: RadioFieldProps) => {
                 <FormItem>
                     <div className=" pl-2 py-2">
                         <FormControl>
-                            <RadioGroup {...field} onValueChange={field.onChange} value={field.value}>
+                            <RadioGroup {...field} onValueChange={field.onChange} value={field.value} className=" space-y-2 ">
                                 <div className="flex items-center space-x-2">
-                                    <RadioGroupItem value="team-member" id="team" />
-                                    <Label htmlFor="team">Team Member</Label>
+                                    <RadioGroupItem value="team-member" id="team-member" />
+                                    <Label htmlFor="team-member">Team Member</Label>
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <RadioGroupItem value="admin" id="admin" />

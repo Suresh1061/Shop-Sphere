@@ -1,4 +1,4 @@
-import { StartsCardType, userType } from "@/types" 
+import { StartsCardType, userType } from "@/types"
 import { useRouter } from "next/navigation";
 
 type StartsCardProps = StartsCardType & { user: userType };
@@ -19,7 +19,7 @@ const StartsCard = ({
         }
     }
     return (
-        <div className="bg-card rounded-lg p-4 flex flex-col gap-2 items-center cursor-pointer" onClick={handleNavigate}>
+        <div className={`bg-card rounded-lg p-4 flex flex-col gap-2 items-center  ${(user.role === "admin" && status !== "pending" ? "cursor-default" : "cursor-pointer")}`} onClick={handleNavigate}>
             <div className="text-4xl font-bold text-card-foreground">{value}</div>
             <div className="text-sm text-card-foreground font-medium text-center">{title}</div>
         </div>

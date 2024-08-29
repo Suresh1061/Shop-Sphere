@@ -5,12 +5,11 @@ export interface productType {
     productDescription: string;
     price: string;
     department: string;
-    stock?: number;
     _id?: string;
     createdAt?: string;
     updatedAt?: string;
     className?: string;
-    showDescription?:boolean;
+    showDescription?: boolean;
 }
 
 export interface reviewResponseType extends productType {
@@ -49,7 +48,6 @@ export interface StartsCardType {
     title: string;
     status: string;
     value: string | number;
-    subtitle: string;
 }
 
 export interface pendingRequestsType {
@@ -63,7 +61,6 @@ export interface pendingRequestsType {
     product_updated_author: string;
     product_updated_author_id: string;
     review_status: string;
-    stock: string;
     updatedAt: string;
     _id: string;
 }

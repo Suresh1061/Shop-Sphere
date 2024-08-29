@@ -1,18 +1,13 @@
 "use client";
 
 import  Loading  from "@/components/loading";
+import StartsCard from "@/components/profile/starts-card";
+import UserInfo from "@/components/profile/user-info";
 import { useUserDetailsQuery } from "@/store/baseApi";
 import { useGetReviewProductsQuery } from "@/store/features/reviewFeature";
 import { StartsCardType } from "@/types";
-import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
-const StartsCard = dynamic(() => import("@/components/profile/starts-card"), {
-  ssr: false,
-});
-const UserInfo = dynamic(() => import("@/components/profile/user-info"), {
-  ssr: false,
-});
 
 
 const Profile = () => {
@@ -39,28 +34,25 @@ const Profile = () => {
 
   const startsList: StartsCardType[] = [
     {
-      title: "Pending Requests",
+      title:
+        user?.role === "admin"
+          ? "Total Pending Requests"
+          : "Pending Requests",
       status: "pending",
       value:
         user?.role === "admin"
           ? reviews?.totalSize
           : user?.no_of_pending_reviews,
-      subtitle:
-        user?.role === "admin"
-          ? "Total pending requests"
-          : "Total products under review",
     },
     {
-      title: "Approved Requests",
+      title: user?.role === "admin" ? "Approved by me" : "Approved Requests",
       status: "approved",
       value: user?.no_of_approved_reviews,
-      subtitle: user?.role === "admin" ? "Approved by me" : "Approved by admin",
     },
     {
-      title: "Rejected Requests",
+      title: user?.role === "admin" ? "Rejected by me" : "Rejected Requests",
       status: "rejected",
       value: user?.no_of_rejected_reviews,
-      subtitle: user?.role === "admin" ? "Rejected by me" : "Rejected by admin",
     },
   ];
 
@@ -79,7 +71,6 @@ const Profile = () => {
                 title={item.title}
                 status={item.status}
                 value={item.value}
-                subtitle={item.subtitle}
               />
             ))}
           </div>

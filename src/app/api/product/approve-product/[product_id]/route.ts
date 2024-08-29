@@ -68,7 +68,6 @@ export async function PATCH(
                 productName,
                 price,
                 productDescription,
-                stock,
                 image,
                 department,
             } = productDetails;
@@ -79,7 +78,6 @@ export async function PATCH(
                     productName,
                     price,
                     productDescription,
-                    stock,
                     image,
                     department,
                 },

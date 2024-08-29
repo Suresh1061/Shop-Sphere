@@ -82,14 +82,14 @@ export const CroppedImage: FC<props> = ({
                             className={"w-[350px] h-auto sm:w-[512px] sm:h-96"}
                         />
                     </div>
-                    <div className=" w-full flex justify-end gap-8">
+                    <div className=" w-full flex justify-end gap-5">
                         <Button
                             disabled={loading}
                             onClick={closedModal}
                             className="bg-red-600 hover:bg-red-500 w-28"
                         >Cancel</Button>
                         <Button
-                            disabled={loading}
+                            disabled={loading || !canvas}
                             onClick={submit}
                             className="bg-green-600 hover:bg-green-500 w-28"
                         >

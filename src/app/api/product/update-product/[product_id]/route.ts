@@ -18,7 +18,7 @@ export async function POST(
                 { status: 400 }
             );
         }
-        
+
         const productExists = await Products.findById(product_id);
 
         //if product not exist
@@ -53,7 +53,7 @@ export async function POST(
         const reviewProductExists = await ReviewProduct.findOne({ id: product_id });
 
         // if product is already under review
-        if (reviewProductExists.review_status === "pending") {
+        if (reviewProductExists && reviewProductExists.review_status === "pending") {
             return NextResponse.json(
                 { message: "Product is already under review", success: false },
                 { status: 409 }
@@ -61,63 +61,32 @@ export async function POST(
         }
 
         // if product is already updated, but try to update
-        if (reviewProductExists.review_status === "pending") {
+        if (reviewProductExists && reviewProductExists.review_status !== "pending") {
             return NextResponse.json(
-                { message: "Product is already under review", success: false },
+                { message: "Product is already updated", success: false },
                 { status: 409 }
             );
         }
-        
+
         // if product is not under review
-        if (!reviewProductExists) {
-            const review_product = await ReviewProduct.create({
-                id: product_id,
-                productName,
-                price,
-                productDescription,
-                image,
-                department,
-                review_status: "pending",
-                product_updated_author: user.email,
-                product_updated_author_id: user.id,
-            });
-            // update user pending review count
-            await User.findByIdAndUpdate(
-                user.id,
-                { $inc: { no_of_pending_reviews: 1 } },
-                { new: true }
-            );
-
-            return NextResponse.json(
-                { message: "Product is under review", success: true },
-                { status: 200 }
-            );
-        }
-
-        // if product is rejected or approved but needs to be updated
-        const review_product = await ReviewProduct.findByIdAndUpdate(
-            product_id,
-            {
-                productName,
-                price,
-                productDescription,
-
-                image,
-                department,
-                id: product_id,
-                review_status: "pending",
-                product_updated_author: user.email,
-                product_updated_author_id: user.id,
-            },
-            { new: true }
-        );
-
+        await ReviewProduct.create({
+            id: product_id,
+            productName,
+            price,
+            productDescription,
+            image,
+            department,
+            review_status: "pending",
+            product_updated_author: user.email,
+            product_updated_author_id: user.id,
+        });
         // update user pending review count
         await User.findByIdAndUpdate(
             user.id,
             { $inc: { no_of_pending_reviews: 1 } },
             { new: true }
         );
+
         return NextResponse.json(
             { message: "Product is under review", success: true },
             { status: 200 }
