@@ -9,6 +9,7 @@ import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import dynamic from "next/dynamic";
+import { useEffect } from "react";
 const PreviewProductCard = dynamic(() => import("@/components/preview-product-card"), { ssr: false });
 
 const PendingRequestDetails = () => {
@@ -52,22 +53,22 @@ const PendingRequestDetails = () => {
     }
   };
 
+  useEffect(() => {
+    if (isError || isReviewProductError || isUpdateProductError) {
+      const errorMsg =
+        (error as { data: { message: string } })?.data?.message ||
+        (reviewProductError as { data: { message: string } })?.data?.message ||
+        (updateProductError as { data: { message: string } })?.data?.message;
+
+      if (errorMsg) {
+        toast.error(errorMsg);
+      }
+    }
+  }, [isError, isReviewProductError, isUpdateProductError]);
+
   if (isLoading || reviewProductLoading || updateProductLoading) {
     return <Loading />;
   }
-
-  // useEffect(() => {
-  //   if (isError || isReviewProductError || isUpdateProductError) {
-  //     const errorMsg =
-  //       (error as { data: { message: string } }) ||
-  //       (reviewProductError as { data: { message: string } }) ||
-  //       (updateProductError as { data: { message: string } });
-
-  //     if (errorMsg && errorMsg.data && errorMsg.data.message) {
-  //       toast.error(errorMsg.data.message);
-  //     }
-  //   }
-  // }, [isError, isReviewProductError, isUpdateProductError])
 
   const originalProduct = data?.data;
   const reviewProduct = reviewProductData?.data;

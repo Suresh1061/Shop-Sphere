@@ -26,7 +26,7 @@ const UserButton: FC<userType> = ({ id, role }) => {
     };
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger>
+            <DropdownMenuTrigger className="!ring-0 !border-none !shadow-none !focus:border-none !focus:ring-0 !outline-none" >
                 <Avatar>
                     <AvatarFallback className="bg-sky-500">
                         <User className="text-white" />

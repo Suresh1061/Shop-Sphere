@@ -32,14 +32,21 @@ const PendingRequests = () => {
     <section className="max-w-screen-xl mx-auto rounded-lg overflow-hidden">
       <h1 className="text-2xl font-semibold text-slate-700  mb-2 text-center">Pending requests</h1>
       <p className="text-gray-600 mb-6 text-center">Here are the list of all products thats are waiting for approval</p>
-      <PendingRequestTable
-        pendingRequests={response.data}
-      />
-      <PaginationButtons
-        pageNumber={page}
-        response={response}
-        setPageNumber={(page) => setPage(page)}
-      />
+      {response ?
+        <>
+          <PendingRequestTable
+            pendingRequests={response.data}
+          />
+          <PaginationButtons
+            pageNumber={page}
+            response={response}
+            setPageNumber={(page) => setPage(page)}
+          />
+        </> :
+        <div className="py-40 text-2xl text-muted-foreground text-center">
+          <h1>There was no any pending requests</h1>
+        </div>
+      }
     </section>
   );
 };
