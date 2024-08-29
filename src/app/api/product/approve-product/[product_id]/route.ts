@@ -30,6 +30,14 @@ export async function PATCH(
             );
         }
 
+        // if action is not approve or reject
+        if (action !== "approved" && action !== "rejected") {
+            return NextResponse.json(
+                { message: "Invalid action", success: false },
+                { status: 400 }
+            );
+        }
+
         const productDetails = await ReviewProduct.findOne({ id: product_id });
 
         // if product is not present in review collection
@@ -37,14 +45,6 @@ export async function PATCH(
             return NextResponse.json(
                 { message: "Product is not present under review", success: false },
                 { status: 404 }
-            );
-        }
-
-        // if action is not approve or reject
-        if (action !== "approved" && action !== "rejected") {
-            return NextResponse.json(
-                { message: "Invalid action", success: false },
-                { status: 400 }
             );
         }
 
@@ -73,7 +73,7 @@ export async function PATCH(
                 department,
             } = productDetails;
             // update original product with review product details
-            const updatedProduct = await Products.findByIdAndUpdate(
+            await Products.findByIdAndUpdate(
                 product_id,
                 {
                     productName,
@@ -105,7 +105,7 @@ export async function PATCH(
                 { new: true }
             );
             // update review product status to approved
-            const approveReview = await ReviewProduct.findByIdAndUpdate(
+            await ReviewProduct.findByIdAndUpdate(
                 productDetails._id,
                 { review_status: "approved" },
                 { new: true }
@@ -117,7 +117,7 @@ export async function PATCH(
             );
         }
         // if admin rejects the product
-        const rejectReview = await ReviewProduct.findByIdAndUpdate(
+        await ReviewProduct.findByIdAndUpdate(
             productDetails._id,
             { review_status: "rejected" },
             { new: true }

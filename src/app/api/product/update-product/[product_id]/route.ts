@@ -18,17 +18,20 @@ export async function POST(
                 { status: 400 }
             );
         }
-        // check if product exists
+        
         const productExists = await Products.findById(product_id);
+
+        //if product not exist
         if (!productExists) {
             return NextResponse.json(
                 { message: "Product not found", success: false },
                 { status: 404 }
             );
         }
-        // check if user is admin
+
+        // check if user is admin then update the product in product database
         if (user.role === "admin") {
-            const updatedProduct = await Products.findByIdAndUpdate(
+            await Products.findByIdAndUpdate(
                 product_id,
                 product,
                 { new: true }
@@ -38,17 +41,33 @@ export async function POST(
                 { status: 200 }
             );
         }
-        // if user is not admin then update product under review
+
+        // Extract the edited product information
         const {
             productName,
             price,
             productDescription,
-            stock,
             image,
             department,
         } = product;
         const reviewProductExists = await ReviewProduct.findOne({ id: product_id });
 
+        // if product is already under review
+        if (reviewProductExists.review_status === "pending") {
+            return NextResponse.json(
+                { message: "Product is already under review", success: false },
+                { status: 409 }
+            );
+        }
+
+        // if product is already updated, but try to update
+        if (reviewProductExists.review_status === "pending") {
+            return NextResponse.json(
+                { message: "Product is already under review", success: false },
+                { status: 409 }
+            );
+        }
+        
         // if product is not under review
         if (!reviewProductExists) {
             const review_product = await ReviewProduct.create({
@@ -56,7 +75,6 @@ export async function POST(
                 productName,
                 price,
                 productDescription,
-                stock,
                 image,
                 department,
                 review_status: "pending",
@@ -75,13 +93,7 @@ export async function POST(
                 { status: 200 }
             );
         }
-        // if product is already under review
-        if (reviewProductExists.review_status === "pending") {
-            return NextResponse.json(
-                { message: "Product is already under review", success: false },
-                { status: 409 }
-            );
-        }
+
         // if product is rejected or approved but needs to be updated
         const review_product = await ReviewProduct.findByIdAndUpdate(
             product_id,
@@ -89,7 +101,7 @@ export async function POST(
                 productName,
                 price,
                 productDescription,
-                stock,
+
                 image,
                 department,
                 id: product_id,

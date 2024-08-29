@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
     try {
         const reqBody = await req.json();
-        const newProduct =await Products.create(reqBody);
+        await Products.create(reqBody);
 
         return NextResponse.json({ message: "Product created successfully", success: true }, { status: 201 })
     } catch (error) {

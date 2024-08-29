@@ -110,7 +110,7 @@ const PendingRequestDetails = () => {
         </div>
       ) : (
         <div className="w-full h-full py-20">
-          <h1 className="text-center text-2xl capitalize mb-4">
+          <h1 className="text-center text-2xl text-muted-foreground capitalize mb-4">
             No product found
           </h1>
         </div>

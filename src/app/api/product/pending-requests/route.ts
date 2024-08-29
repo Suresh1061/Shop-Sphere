@@ -10,7 +10,10 @@ export async function GET(req: NextRequest) {
         const page = url.searchParams.get("page") as unknown as number || 1;
         const status = url.searchParams.get("status") || "pending";
 
-        const reviewsProducts = await ReviewProduct.find({ review_status: status }).limit(limit).skip((page - 1) * limit);
+        const reviewsProducts = await ReviewProduct.find({ review_status: status })
+            .sort({ updatedAt: -1 })
+            .limit(limit)
+            .skip((page - 1) * limit);
         const totalSize = reviewsProducts.length;
         const totalPages = Math.ceil(totalSize / limit);
 
