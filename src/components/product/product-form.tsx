@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -26,6 +26,8 @@ interface ProductFormProps {
 const ProductForm = ({ product, setEditable }: ProductFormProps) => {
     const router = useRouter();
     const [updateProduct, { isLoading, isError, error }] = useUpdateProductMutation();
+    const [role, setRole] = useState<"admin" | "team-member">();
+    const [userLoading, setUserLoading] = useState<boolean>(false)
 
     const form = useForm<z.infer<typeof productSchema>>({
         resolver: zodResolver(productSchema),
@@ -40,6 +42,15 @@ const ProductForm = ({ product, setEditable }: ProductFormProps) => {
             department: product?.department || "",
         }
     });
+
+    useEffect(() => {
+        (async () => {
+            setUserLoading(true)
+            const session = await getSession();
+            setRole(session.user.role);
+            setUserLoading(false)
+        })()
+    }, [])
 
     useEffect(() => {
         if (isError) {
@@ -69,7 +80,7 @@ const ProductForm = ({ product, setEditable }: ProductFormProps) => {
     return (
         <div className="max-w-5xl w-full mx-auto">
             <div className="p-5">
-                {isLoading ? (
+                {(isLoading || userLoading) ? (
                     <Loading />
                 ) : (
                     <Form {...form}>
@@ -120,7 +131,7 @@ const ProductForm = ({ product, setEditable }: ProductFormProps) => {
                                     type="submit"
                                     className="w-full"
                                 >
-                                    Submit for approval
+                                    {role === "admin" ? "Save" : "Submit for approval"}
                                 </Button>
                             </div>
                         </form>
