@@ -5,7 +5,7 @@ export const LoginSchema = z.object({
         message: "Invalid email address"
     }),
     password: z.string().min(6, { message: "password must be at least 6 characters" })
-        // .regex(/^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d).+$/, { message: "Password must contain at least one uppercase letter, one special character, and one or more numbers" })
+        .regex(/^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d).+$/, { message: "Password must contain at least one uppercase letter, one special character, and one or more numbers" })
 })
 
 export const registerSchema = z.object({
