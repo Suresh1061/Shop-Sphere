@@ -1,4 +1,4 @@
-# Project Overview
+# Shop Sphere Admin Panel Project Overview
 This is a full-stack web application that I created using Next.js 14. In this application, there are two main types of users: Team Member and Admin. Both users share the same dashboard but have different permissions.
 
 Admins can easily update any products without needing approval. However, when a Team Member updates a product, it requires approval from an Admin before the changes are reflected on the dashboard.
