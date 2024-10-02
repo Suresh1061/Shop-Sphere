@@ -7,6 +7,24 @@ Admins can easily update any products without needing approval. However, when a 
 - The platform allows users to register as either a Team Member or an Admin.
 - During login, users do not need to specify their role (e.g., Admin or Team Member). Their role is automatically determined based on the information provided during the registration process.
 
+## Installation
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/Suresh1061/Shop-Sphere.git
+    cd Shop-Sphere
+    ```
+
+2. Install the dependencies:
+    ```bash
+    pnpm install
+    ```
+
+3. Start the development server:
+    ```bash
+    pnpm run dev
+    ```
+
 # Features
 ## Team members section:
 - Team members can view a list of all products on their dashboard.
